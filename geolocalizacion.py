@@ -4,7 +4,7 @@ import urllib.parse
 url_geocodificacion = "https://graphhopper.com/api/1/geocode?"
 url_ruta = "https://graphhopper.com/api/1/route?"
 
-# Ingresa tu token API de GraphHopper
+# API Key
 clave = "8116d6a9-8f36-4a64-8610-a5b5158d13f5"
 
 nombres_vehiculo = {
@@ -15,7 +15,7 @@ nombres_vehiculo = {
 
 def geocodificar(ubicacion, api_key):
     while ubicacion.strip() == "":
-        ubicacion = input("La ubicación no puede estar vacía. Ingrésala nuevamente: ")
+        ubicacion = input("La ubicación no puede estar vacía. Trata ingresarla nuevamente: ")
 
     params = {
         "q": ubicacion,
@@ -65,7 +65,7 @@ while True:
         transporte = "car"
         print("Opción no válida. Se utilizará 'car' (auto) por defecto.")
 
-    # Origen
+    
     origen_input = input("\nIngrese la ubicación inicial: ").strip()
     if origen_input.lower() in ["s", "salir"]:
         print("Saliendo del programa...")
@@ -76,7 +76,7 @@ while True:
         print("No se pudo fijar el punto de origen. Intente otra vez.")
         continue
 
-    # Destino
+    
     destino_input = input("\nIngrese la ubicación de destino: ").strip()
     if destino_input.lower() in ["s", "salir"]:
         print("Saliendo del programa...")
@@ -87,7 +87,7 @@ while True:
         print("No se pudo fijar el punto de destino. Intente otra vez.")
         continue
 
-    # Puntos de la ruta
+    
     puntos = f"&point={lat1}%2C{lng1}&point={lat2}%2C{lng2}"
     params_ruta = {
         "key": clave,
@@ -106,7 +106,7 @@ while True:
     if cod_ruta == 200 and "paths" in datos_ruta:
         tramo = datos_ruta["paths"][0]
 
-        # Conversiones numéricas formateadas a 2 decimales
+        # Conversion
         km = tramo["distance"] / 1000.0
         duracion_min = (tramo["time"] / 1000.0) / 60.0
         horas_reloj = int(duracion_min // 60)
